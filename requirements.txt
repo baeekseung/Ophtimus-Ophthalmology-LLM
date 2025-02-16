@@ -5,10 +5,12 @@ datasets
 accelerate
 pandas
 tqdm
+peft
 openpyxl
 openai==0.28.0
 python-dotenv
 fasttext
 fitz
 langchain_community
-
+bitsandbytes
+trl
