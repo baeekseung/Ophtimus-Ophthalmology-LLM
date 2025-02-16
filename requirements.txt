@@ -1,0 +1,14 @@
+huggingface_hub
+transformers
+torch
+datasets
+accelerate
+pandas
+tqdm
+openpyxl
+openai==0.28.0
+python-dotenv
+fasttext
+fitz
+langchain_community
+
