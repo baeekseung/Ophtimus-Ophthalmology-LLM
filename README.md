@@ -1,4 +1,11 @@
 # Ophtimus: Ophthalmology-specific LLM
+<p align="center">
+<br>
+    <picture>
+        <img alt="Ophtimus Logo" src="Images/Ophtimus_logo.png" width="400" style="margin: 40px auto;">
+    </picture>
+</br>
+
 <p align="left"> 🤗 <a href="https://huggingface.co/collections/kakaocorp/kanana-nano-21b-67a326cda1c449c8d4172259">Models</a> &nbsp
 
 <p align="center">
