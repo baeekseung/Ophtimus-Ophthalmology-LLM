@@ -2,11 +2,11 @@
 <p align="center">
 <br>
     <picture>
-        <img alt="Ophtimus Logo" src="Images/Ophtimus_logo.png" width="70%"">
+        <img alt="Ophtimus Logo" src="Images/Ophtimus_logo.png" width="50%"">
     </picture>
 </br>
 
-<p align="left"> 🤗 <a href="https://huggingface.co/collections/kakaocorp/kanana-nano-21b-67a326cda1c449c8d4172259">Models</a> &nbsp
+<p align="center"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models</a> &nbsp
 
 <p align="center">
  <img src="./Images/Ophtimus_Dev_Architecture.png" width="80%">
