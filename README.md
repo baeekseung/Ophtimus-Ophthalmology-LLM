@@ -2,7 +2,7 @@
 <p align="center">
 <br>
     <picture>
-        <img alt="Ophtimus Logo" src="Images/Ophtimus_logo.png" width="400" style="margin: 40px auto;">
+        <img alt="Ophtimus Logo" src="Images/Ophtimus_logo.png" width="70%"">
     </picture>
 </br>
 
