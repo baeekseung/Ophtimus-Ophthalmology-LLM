@@ -16,7 +16,7 @@ Ophtimus는 안과 전문성을 극대화하기 위해 도메인 특화 데이�
 Ophtimus의 중요한 특징 중 하나는 개방성과 확장성입니다. 의료 AI의 발전을 촉진하기 위해 오픈소스로 공개되어 누구나 활용하고 개선할 수 있도록 설계되었습니다. 이를 통해 연구자, 의료진, 개발자들이 보다 쉽게 안과 전문 LLM을 활용하고, 맞춤형 의료 AI 시스템을 구축할 수 있습니다. 또한, Ophtimus의 개발 과정과 데이터 처리 파이프라인도 공개되어 있어, 다른 의료 분야에서도 유사한 도메인 특화 LLM을 개발하는 데 참고할 수 있는 사례를 제공합니다.
 
 <p align="left">
- <img src="./Images/Ophtimus_Dev_Architecture.png" width="80%">
+ <img src="./Images/Ophtimus_Dev_Architecture2.png" width="80%">
 </p>
 
 
