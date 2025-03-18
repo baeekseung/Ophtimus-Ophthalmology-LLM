@@ -218,3 +218,11 @@ decoded = tokenizer.batch_decode(outputs, skip_special_tokens=False)
 for i, text in enumerate(decoded):
     print(f"------------------------\nAnswer for question {i+1}:\n{text}")
 ```
+
+## Pre-Training
+
+### Data Preparation
+
+```bash
+python Pre-Trainin.py --num_train_epochs 3 --per_device_train_batch_size 4
+```

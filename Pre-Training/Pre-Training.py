@@ -12,7 +12,7 @@ load_dotenv()
 HF_TOKEN_read = os.getenv("HF_TOKEN_read")
 
 from huggingface_hub import login
-login(token = HF_TOKEN_read)
+login(token=HF_TOKEN_read)
 
 os.environ["TORCH_USE_CUDA_DSA"] = "1"
 
@@ -29,62 +29,46 @@ class CustomDataset(Dataset):
     def __getitem__(self, idx):
         input_ids = torch.LongTensor(self.dataset[idx]["input_ids"])
         labels = torch.LongTensor(self.dataset[idx]["input_ids"])
-
         return {"input_ids": input_ids, "labels": labels}
 
 
 @dataclass
 class CustomArguments(transformers.TrainingArguments):
-    dataset_name: str = field(default="./Pre-Training-Dataset/packaged_pretrain_Dataset.parquet")
-    num_proc: int = field(default=1)  # Number of subprocesses for data preprocessing
-    max_seq_length: int = field(default=1024)  # Maximum sequence length
-    output_dir: str = field(default="./training_output")  # output directory
+    # 데이터셋 및 출력 경로 관련 인자
+    dataset_name: str = field(
+        default="./Pre-Training-Dataset/packaged_pretrain_Dataset.parquet"
+    )
+    max_seq_length: int = field(default=1024)
+    output_dir: str = field(default="./training_output")
 
-    # Core training configurations
-    seed: int = field(
-        default=0
-    )  # Random seed for initialization, ensuring reproducibility
-    optim: str = field(
-        default="adamw_torch"
-    )  # Optimizer, here it's AdamW implemented in PyTorch
-    num_train_epochs: int = field(default=3)  # Number of maximum training steps
-    per_device_train_batch_size: int = field(
-        default=4
-    )  # Batch size per device during training
-
+    # 핵심 학습 설정
+    seed: int = field(default=0)
+    optim: str = field(default="adamw_torch")
+    num_train_epochs: int = field(default=3)
+    per_device_train_batch_size: int = field(default=4)
     save_strategy: str = field(default="epoch")
 
-    # Other training configurations
-    learning_rate: float = field(
-        default=5e-5
-    )  # Initial learning rate for the optimizer
-    weight_decay: float = field(default=0)  # Weight decay
-    warmup_steps: int = field(
-        default=5
-    )  # Number of steps for the learning rate warmup phase
-    lr_scheduler_type: str = field(default="linear")  # Type of learning rate scheduler
-    gradient_checkpointing: bool = field(
-        default=True
-    )  # Enable gradient checkpointing to save memory
+    # 추가 학습 설정
+    learning_rate: float = field(default=5e-5)
+    weight_decay: float = field(default=0)
+    warmup_steps: int = field(default=5)
+    lr_scheduler_type: str = field(default="linear")
+    gradient_checkpointing: bool = field(default=True)
     gradient_checkpointing_kwargs: dict = field(
         default_factory=lambda: {"use_reentrant": False}
     )
-    dataloader_num_workers: int = field(
-        default=2
-    )  # Number of subprocesses for data loading
-    bf16: bool = field(
-        default=True
-    )  # Use bfloat16 precision for training on supported hardware
-    gradient_accumulation_steps: int = field(
-        default=4
-    )  # Number of steps to accumulate gradients before
-    # updating model weights
+    dataloader_num_workers: int = field(default=2)
+    bf16: bool = field(default=True)
+    gradient_accumulation_steps: int = field(default=4)
 
-    # Logging configuration
-    logging_steps: int = field(default=50)  # Frequency of logging training information
-    report_to: str = field(
-        default="none"
-    )  # Destination for logging (e.g., WandB, TensorBoard)
+    # DeepSpeed 설정 (DeepSpeed config 파일 경로 지정)
+    deepspeed: str = field(
+        default="deepspeed_config.json", metadata={"help": "Path to DeepSpeed config file"}
+    )
+
+    # 로깅 설정
+    logging_steps: int = field(default=50)
+    report_to: str = field(default="none")
 
 
 class LossLoggingCallback(TrainerCallback):
@@ -104,13 +88,7 @@ def main():
     print("Is CUDA available?", torch.cuda.is_available())
     print("Number of GPUs:", torch.cuda.device_count())
 
-    # if "CUDA_VISIBLE_DEVICES" not in os.environ:
-    #     print("missing CUDA_VISIBLE_DEVICES")
-    #     sys.exit(0)
-
     train_dataset = CustomDataset(args=args)
-    # train_dataset = train_dataset.shard(num_shards=10, index=0)
-
     print("Input shape: ", train_dataset[0]["input_ids"].shape)
 
     pretrained_model = AutoModelForCausalLM.from_pretrained(
