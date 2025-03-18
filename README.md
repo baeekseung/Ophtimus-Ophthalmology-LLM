@@ -221,8 +221,6 @@ for i, text in enumerate(decoded):
 
 ## Pre-Training
 
-### Data Preparation
-
 ```bash
 python Pre-Trainin.py --num_train_epochs 3 --per_device_train_batch_size 4
 ```
