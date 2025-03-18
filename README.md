@@ -155,3 +155,66 @@ Ophtimus의 중요한 특징 중 하나는 개방성과 확장성입니다. 의�
 
 ## Quickstart
 
+### Install Dependencies
+
+```bash
+cd Ophtimus-Ophthalmology-LLM
+pip install -r requirements.txt
+```
+
+### Ophtimus Inference
+
+```python
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# model_name example : BaekSeungJu/Ophtimus-Instruct-8B or Ophtimus-Llama-1B or Ophtimus-Llama-3B or Ophtimus-Llama-8B
+model_name = "BaekSeungJu/Ophtimus-Instruct-8B"
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=torch.bfloat16,
+    trust_remote_code=True,
+).to("cuda")
+
+tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side="left")
+tokenizer.pad_token = tokenizer.eos_token
+
+system_instruction = (
+    "You are an expert ophthalmologist. Please provide accurate and "
+    "medically sound answers to the user's ophthalmology-related question."
+)
+
+# 여러 질문을 리스트에 담습니다.
+questions = [
+    "Please describe the symptoms and treatment of epiretinal membrane.",
+    "What's good for eyes?"
+]
+
+prompts = []
+for question in questions:
+    row_json = [
+        {"role": "system", "content": system_instruction},
+        {"role": "user", "content": question}
+    ]
+    prompt = tokenizer.apply_chat_template(row_json, add_generation_prompt=True, tokenize=False)
+    prompts.append(prompt)
+
+input_ids = tokenizer(
+    prompts,
+    padding=True,
+    return_tensors="pt",
+)["input_ids"].to("cuda")
+
+model.eval()
+with torch.no_grad():
+    outputs = model.generate(
+        input_ids,
+        max_new_tokens=1024,
+        do_sample=False,
+    )
+
+decoded = tokenizer.batch_decode(outputs, skip_special_tokens=False)
+for i, text in enumerate(decoded):
+    print(f"------------------------\nAnswer for question {i+1}:\n{text}")
+```
