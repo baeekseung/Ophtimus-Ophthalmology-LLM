@@ -6,7 +6,7 @@
     </picture>
 </br>
 
-<p align="center"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp
+<p align="center"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://drive.google.com/file/d/11dpyQioF3eshol3asbFzsNAJ4cEqwm49/view?usp=sharing">AAAI 2025 workshop Paper</a>
 
 
 ## Introduction
@@ -32,4 +32,126 @@ Ophtimus의 중요한 특징 중 하나는 개방성과 확장성입니다. 의�
 | Ophtimus-Llama-3B [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-3B-Instruct)]| Llama-3.2-3B-Instruct | 3B | ❌ | ✅ |
 | Ophtimus-Llama-8B [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-8B-Instruct)] | Llama-3.1-8B-Instruct | 8B | ❌ | ✅ |
 | Ophtimus-Instruct-8B [[Link](https://huggingface.co/your-link-here)] | Ophtimus-Base | 8B |✅ | ✅ |
+
+## Performance
+
+> [!Note]
+> Multi-Choice QA : Ophtimus-Eval, MedMCQA, PubMedQA | Essay QA : MedQuAD, Medical Flashcards, Medical Wikidoc
+> Ophtimus-Eval은 자체적으로 의료 플렛폼에서 수집한 데이터이고, 나머지는 의료 벤치마크 데이터에서 안과학 도메인 QA만을 추출하여 평가하였습니다
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">Model</th>
+            <th colspan="3">Multi-Choice Question</th>
+            <th colspan="4">Essay Question</th>
+        </tr>
+        <tr>
+            <th>Ophtimus Eval</th>
+            <th>MedMCQA (Ophth)</th>
+            <th>PubmedQA (Ophth)</th>
+            <th>RougeL</th>
+            <th>BLEU</th>
+            <th>METEOR</th>
+            <th>SemScore</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="highlight">OpenAI GPT-4o</td>
+            <td class="highlight">71.95%</td>
+            <td class="highlight">81.95%</td>
+            <td class="highlight">89.90%</td>
+            <td>0.193</td>
+            <td>0.082</td>
+            <td class="highlight">0.341</td>
+            <td class="highlight">0.761</td>
+        </tr>
+        <tr>
+            <td>Llama-3-8B-Instrct</td>
+            <td>48.60%</td>
+            <td>74.02%</td>
+            <td>63.97%</td>
+            <td>0.193</td>
+            <td>0.064</td>
+            <td>0.244</td>
+            <td>0.684</td>
+        </tr>
+        <tr>
+            <td>Llama-3.1-8B-Instrct</td>
+            <td>39.78%</td>
+            <td>57.96%</td>
+            <td>83.84%</td>
+            <td>0.177</td>
+            <td>0.054</td>
+            <td>0.215</td>
+            <td>0.641</td>
+        </tr>
+        <tr>
+            <td>Eye-Llama</td>
+            <td>32.56%</td>
+            <td>59.43%</td>
+            <td>66.11%</td>
+            <td>0.183</td>
+            <td>0.062</td>
+            <td>0.211</td>
+            <td>0.686</td>
+        </tr>
+        <tr>
+            <td>PMC-Llama-13B</td>
+            <td>48.28%</td>
+            <td>63.45%</td>
+            <td>72.48%</td>
+            <td>0.223</td>
+            <td>0.082</td>
+            <td>0.288</td>
+            <td>0.714</td>
+        </tr>
+        <tr>
+            <td>Ophtimus-Llama-1B</td>
+            <td>41.45%</td>
+            <td>45.74%</td>
+            <td>61.95%</td>
+            <td>0.219</td>
+            <td>0.076</td>
+            <td>0.217</td>
+            <td>0.711</td>
+        </tr>
+        <tr>
+            <td>Ophtimus-Llama-3B</td>
+            <td>52.70%</td>
+            <td>62.10%</td>
+            <td>69.36%</td>
+            <td>0.224</td>
+            <td>0.077</td>
+            <td>0.225</td>
+            <td>0.726</td>
+        </tr>
+        <tr>
+            <td>Ophtimus-Llama-8B</td>
+            <td>60.78%</td>
+            <td>68.25%</td>
+            <td>69.70%</td>
+            <td class="highlight">0.226</td>
+            <td class="highlight">0.083</td>
+            <td>0.230</td>
+            <td>0.733</td>
+        </tr>
+        <tr>
+            <td>Ophtimus-Instruct-8B</td>
+            <td>63.85%</td>
+            <td>71.51%</td>
+            <td>72.73%</td>
+            <td>0.222</td>
+            <td>0.079</td>
+            <td>0.224</td>
+            <td class="highlight">0.735</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
+## Quickstart
 
