@@ -1,6 +1,6 @@
 # Ophtimus: Ophthalmology-specific LLM
 
-<p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://drive.google.com/file/d/11dpyQioF3eshol3asbFzsNAJ4cEqwm49/view?usp=sharing">AAAI 2025 workshop Paper</a>
+<p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://openreview.net/forum?id=dIJPlNKhgv">AAAI 2025 workshop Paper</a>
 
 
 ## Introduction
