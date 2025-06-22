@@ -1,7 +1,13 @@
 # Ophtimus: Ophthalmology-specific LLM
 
-<p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://openreview.net/forum?id=dIJPlNKhgv">AAAI 2025 workshop Paper</a>
+![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge)
+![Transformers](https://img.shields.io/badge/Transformers-EF5350?style=for-the-badge) 
+![LangChain](https://img.shields.io/badge/LangChain-0E8388?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge)
 
+<p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://openreview.net/forum?id=dIJPlNKhgv">AAAI 2025 workshop Paper</a>
 
 ## Introduction
 Introducing Ophtimus, a large language model (LLM) specialized in the field of ophthalmology. Built with 8 billion parameters, Ophtimus was developed to enhance the practicality and accessibility of medical AI by focusing on ophthalmology-specific data and expertise.
