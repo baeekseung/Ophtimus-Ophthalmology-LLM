@@ -10,10 +10,8 @@
 <p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://openreview.net/forum?id=dIJPlNKhgv">AAAI 2025 workshop Paper</a>
 
 ## Introduction
-Introducing Ophtimus, a large language model (LLM) specialized in the field of ophthalmology. Built with 8 billion parameters, Ophtimus was developed to enhance the practicality and accessibility of medical AI by focusing on ophthalmology-specific data and expertise.
-To maximize its capabilities, Ophtimus was trained on carefully selected, high-quality data—including medical papers, textbooks, and research reports—resulting in a model that provides sophisticated and reliable ophthalmic knowledge. During the training process, techniques such as data filtering, summarization, and preprocessing were applied to eliminate extraneous information and emphasize the most critical content.
-The model’s architecture is optimized based on Meta’s LLaMA series. By adopting a lightweight design while maintaining high performance, Ophtimus is poised to offer an efficient AI system suitable for real-world applications in clinical support, medical education, and patient consultation assistance.
-Ophtimus is notable for its openness and extensibility. Released as open source to advance medical AI, it enables researchers, clinicians, and developers to freely utilize and enhance the model for their own needs, supporting the creation of customized AI systems in ophthalmology. Its development process and data processing pipeline are also disclosed, serving as a valuable reference for anyone looking to build similar domain-specific LLMs in other areas of medicine.
+Ophtimus is an open-source large language model (LLM) specialized in ophthalmology, built with 8 billion parameters based on the LLaMA architecture. It was trained on carefully curated ophthalmology-specific data, including medical papers, textbooks, and research reports. Through filtering, summarization, and preprocessing, only the most relevant and high-quality information was retained.  
+Designed to be both lightweight and high-performing, Ophtimus is suitable for real-world applications such as clinical decision support, medical education, and patient communication. The model and its training pipeline are fully open-sourced, providing a practical reference for developing similar domain-specific LLMs in other areas of medicine.
 
 <p align="left">
  <img src="./Images/Ophtimus_Dev_Architecture2.png" width="80%">
