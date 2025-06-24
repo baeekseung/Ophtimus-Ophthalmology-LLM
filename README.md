@@ -17,13 +17,30 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
  <img src="./Images/Ophtimus_Dev_Architecture2.png" width="80%">
 </p>
 
+## Dataset Details
+
+> [!Note]
+> Table의 pre-training, fine-tuning은 본 프로젝트에서 실행한 학습을 의미합니다.  
+> Base model들은 이미 이전에 pre-training/fine-tuning을 거친 모델들로 본 프로젝트에서는 transfer learning 하였습니다.
+
+| Name | Source | Size | Purpose | Key Features |
+|------|-------------|------------|-------------|------------|
+| Ophthalmology-pubmed-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-PubMed-Corpus)] | Ophthalmology paper | 18.4M Tokens | Pre-Training | • Map-reduce method summary<br>• Broad ophthalmic keywords|
+| Ophthalmology-textbook-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-Textbook-Corpus)] | Ophthalmology textbook | 4M Tokens | Pre-Training | • Trusted medical sources<br>• Rich in diagnostic cases |
+| Opthalmology MCQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-MCQA-v3)]| Ophthalmology Docs | 51.7k QA | Inst-Tuning | • Diverse multiple-choice formats<br>• Reasoning included<br>• Variety of ophthalmic topics |
+| Opthalmology EQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-EQA-v3)] | Ophthalmology Docs | 49.3k QA | Inst-Tuning | • Variety of ophthalmic topics |
+| Ophtimus-Eval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/OphtimusEval-Dataset)] | Medical platform data | 2,153 QA | Evaluation | • expert-verified data<br>• MCQA dataset|
+| PubMedQA-ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/PubMedQA-Ophthal-Dataset)] | PubMedQA | 297 QA | Evaluation | • 	Ophthalmology domain filtered<br>• True/False MCQA dataset |
+| MedMCQA-Ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/MedMCQA-Ophthal-Dataset)] | MedMCQA | 6,932 QA | Evaluation | • 	Ophthalmology domain filtered<br>• MCQA dataset |
+| EQAEval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/EQAEval-Ophthal-Dataset)] | MedQuAD, Others | 1,389 QA | Evaluation | • Diverse open-source datasets<br>• Ophthalmology domain filtered<br>• Essay QA |
+
 ## Model Details
 
 > [!Note]
 > Table의 pre-training, fine-tuning은 본 프로젝트에서 실행한 학습을 의미합니다.  
 > Base model들은 이미 이전에 pre-training/fine-tuning을 거친 모델들로 본 프로젝트에서는 transfer learning 하였습니다.
 
-| 모델명 | Base model | 파라미터 | Pre-training | Fine-tuning |
+| 모델명 | Base model | 파라미터 | Pre-training | Instruction-tuning |
 |------|-------------|------------|-------------|------------|
 | Ophtimus-Base [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-8B-Base)] | Llama-3.1-8B | 8B | ✅ | ❌ |
 | Ophtimus-Llama-1B [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-1B-Instruct)] | Llama-3.2-1B-Instruct | 1B | ❌ | ✅ |
