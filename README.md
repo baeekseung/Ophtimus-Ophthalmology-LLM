@@ -19,7 +19,13 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
 
 ## Dataset Details
 
-| Name | Source | Size | Purpose | Key Features |
+> [!Note]
+> All datasets were either newly constructed or adapted for this project.  
+> Pre-training datasets were curated from open-source ophthalmology materials, while instruction-tuning and evaluation datasets were built by extracting only ophthalmology-relevant samples from broader medical corpora.  
+> All data underwent preprocessing steps including deduplication, language filtering (English only), and removal of any personally identifiable information (PII).
+
+
+| Dataset name | Source | Size | Purpose | Key Features |
 |------|-------------|------------|-------------|------------|
 | Ophthalmology-pubmed-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-PubMed-Corpus)] | Ophthalmology paper | 18.4M Tokens | Pre-Training | • Map-reduce method summary<br>• Broad ophthalmic keywords|
 | Ophthalmology-textbook-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-Textbook-Corpus)] | Ophthalmology textbook | 4M Tokens | Pre-Training | • Trusted medical sources<br>• Rich in diagnostic cases |
@@ -33,10 +39,10 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
 ## Model Details
 
 > [!Note]
-> Table의 pre-training, fine-tuning은 본 프로젝트에서 실행한 학습을 의미합니다.  
-> Base model들은 이미 이전에 pre-training/fine-tuning을 거친 모델들로 본 프로젝트에서는 transfer learning 하였습니다.
+> The "pre-training" and "fine-tuning" columns in the table refer to the training performed in this project.  
+> The base models had already undergone pre-training and/or fine-tuning prior to this project, and we applied transfer learning using those models.
 
-| 모델명 | Base model | 파라미터 | Pre-training | Instruction-tuning |
+| Model name | Base model | Parameters | Pre-training | Instruction-tuning |
 |------|-------------|------------|-------------|------------|
 | Ophtimus-Base [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-8B-Base)] | Llama-3.1-8B | 8B | ✅ | ❌ |
 | Ophtimus-Llama-1B [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-1B-Instruct)] | Llama-3.2-1B-Instruct | 1B | ❌ | ✅ |
@@ -47,8 +53,8 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
 ## Performance
 
 > [!Note]
-> Multi-Choice QA : Ophtimus-Eval, MedMCQA, PubMedQA | Essay QA : MedQuAD, Medical Flashcards, Medical Wikidoc
-> Ophtimus-Eval은 자체적으로 의료 플렛폼에서 수집한 데이터이고, 나머지는 의료 벤치마크 데이터에서 안과학 도메인 QA만을 추출하여 평가하였습니다
+> Multi-Choice QA: Ophtimus-Eval, MedMCQA, PubMedQA | Essay QA: MedQuAD, Medical Flashcards, Medical Wikidoc  
+> Ophtimus-Eval is a proprietary dataset collected from a medical platform. The others are established medical benchmark datasets, from which only ophthalmology-related QA pairs were extracted for evaluation.
 
 <table>
     <thead>
