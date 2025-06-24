@@ -27,12 +27,12 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
 |------|-------------|------------|-------------|------------|
 | Ophthalmology-pubmed-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-PubMed-Corpus)] | Ophthalmology paper | 18.4M Tokens | Pre-Training | • Map-reduce method summary<br>• Broad ophthalmic keywords|
 | Ophthalmology-textbook-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-Textbook-Corpus)] | Ophthalmology textbook | 4M Tokens | Pre-Training | • Trusted medical sources<br>• Rich in diagnostic cases |
-| Opthalmology MCQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-MCQA-v3)]| Ophthalmology Docs | 51.7k QA | Inst-Tuning | • Diverse multiple-choice formats<br>• Reasoning included<br>• Variety of ophthalmic topics |
-| Opthalmology EQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-EQA-v3)] | Ophthalmology Docs | 49.3k QA | Inst-Tuning | • Variety of ophthalmic topics |
-| Ophtimus-Eval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/OphtimusEval-Dataset)] | Medical platform data | 2,153 QA | Evaluation | • expert-verified data<br>• MCQA dataset|
-| PubMedQA-ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/PubMedQA-Ophthal-Dataset)] | PubMedQA | 297 QA | Evaluation | • 	Ophthalmology domain filtered<br>• True/False MCQA dataset |
-| MedMCQA-Ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/MedMCQA-Ophthal-Dataset)] | MedMCQA | 6,932 QA | Evaluation | • 	Ophthalmology domain filtered<br>• MCQA dataset |
-| EQAEval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/EQAEval-Ophthal-Dataset)] | MedQuAD, Others | 1,389 QA | Evaluation | • Diverse open-source datasets<br>• Ophthalmology domain filtered<br>• Essay QA |
+| Opthalmology MCQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-MCQA-v3)]| Ophthalmology Docs | 51.7k QAs | Inst-Tuning | • Diverse multiple-choice formats<br>• Reasoning included<br>• Variety of ophthalmic topics |
+| Opthalmology EQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-EQA-v3)] | Ophthalmology Docs | 49.3k QAs | Inst-Tuning | • Variety of ophthalmic topics |
+| Ophtimus-Eval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/OphtimusEval-Dataset)] | Medical platform data | 2,153 QAs | Evaluation | • expert-verified data<br>• MCQA dataset|
+| PubMedQA-ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/PubMedQA-Ophthal-Dataset)] | PubMedQA | 297 QAs | Evaluation | • 	Ophthalmology domain filtered<br>• True/False MCQA dataset |
+| MedMCQA-Ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/MedMCQA-Ophthal-Dataset)] | MedMCQA | 6,932 QAs | Evaluation | • 	Ophthalmology domain filtered<br>• MCQA dataset |
+| EQAEval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/EQAEval-Ophthal-Dataset)] | MedQuAD, Others | 1,389 QAs | Evaluation | • Diverse open-source datasets<br>• Ophthalmology domain filtered<br>• Essay QA |
 
 ## Model Details
 
