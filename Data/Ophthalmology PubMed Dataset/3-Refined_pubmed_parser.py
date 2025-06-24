@@ -28,4 +28,4 @@ def load_excel_files_from_folder(folder_path):
 
     return combined_df
 
-print(load_excel_files_from_folder("./Refined Ophthalmology PubMed"))
+load_excel_files_from_folder("./Refined Ophthalmology PubMed")
