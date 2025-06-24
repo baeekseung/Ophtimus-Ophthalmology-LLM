@@ -19,10 +19,6 @@ Designed to be both lightweight and high-performing, Ophtimus is suitable for re
 
 ## Dataset Details
 
-> [!Note]
-> Table의 pre-training, fine-tuning은 본 프로젝트에서 실행한 학습을 의미합니다.  
-> Base model들은 이미 이전에 pre-training/fine-tuning을 거친 모델들로 본 프로젝트에서는 transfer learning 하였습니다.
-
 | Name | Source | Size | Purpose | Key Features |
 |------|-------------|------------|-------------|------------|
 | Ophthalmology-pubmed-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-PubMed-Corpus)] | Ophthalmology paper | 18.4M Tokens | Pre-Training | • Map-reduce method summary<br>• Broad ophthalmic keywords|
