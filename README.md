@@ -202,7 +202,7 @@ system_instruction = (
     "medically sound answers to the user's ophthalmology-related question."
 )
 
-# 여러 질문을 리스트에 담습니다.
+# Enter your questions in the list
 questions = [
     "Please describe the symptoms and treatment of epiretinal membrane.",
     "What's good for eyes?"
