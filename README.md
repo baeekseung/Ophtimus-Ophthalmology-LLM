@@ -1,25 +1,48 @@
 # Ophtimus: Ophthalmology-specific LLM
 
+![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge)
+![Transformers](https://img.shields.io/badge/Transformers-EF5350?style=for-the-badge) 
+![LangChain](https://img.shields.io/badge/LangChain-0E8388?style=for-the-badge)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge)
+
 <p align="left"> 🤗 <a href="https://huggingface.co/collections/BaekSeungJu/ophtimus-series-67d859fedb756527d680ce42">Models and Datasets</a> &nbsp | &nbsp 📕 <a href="https://openreview.net/forum?id=dIJPlNKhgv">AAAI 2025 workshop Paper</a>
 
-
 ## Introduction
-Introducing Ophtimus, a large language model (LLM) specialized in the field of ophthalmology. Built with 8 billion parameters, Ophtimus was developed to enhance the practicality and accessibility of medical AI by focusing on ophthalmology-specific data and expertise.
-To maximize its capabilities, Ophtimus was trained on carefully selected, high-quality data—including medical papers, textbooks, and research reports—resulting in a model that provides sophisticated and reliable ophthalmic knowledge. During the training process, techniques such as data filtering, summarization, and preprocessing were applied to eliminate extraneous information and emphasize the most critical content.
-The model’s architecture is optimized based on Meta’s LLaMA series. By adopting a lightweight design while maintaining high performance, Ophtimus is poised to offer an efficient AI system suitable for real-world applications in clinical support, medical education, and patient consultation assistance.
-Ophtimus is notable for its openness and extensibility. Released as open source to advance medical AI, it enables researchers, clinicians, and developers to freely utilize and enhance the model for their own needs, supporting the creation of customized AI systems in ophthalmology. Its development process and data processing pipeline are also disclosed, serving as a valuable reference for anyone looking to build similar domain-specific LLMs in other areas of medicine.
+Ophtimus is an open-source large language model (LLM) specialized in ophthalmology, built with 8 billion parameters based on the LLaMA architecture. It was trained on carefully curated ophthalmology-specific data, including medical papers, textbooks, and research reports. Through filtering, summarization, and preprocessing, only the most relevant and high-quality information was retained.  
+Designed to be both lightweight and high-performing, Ophtimus is suitable for real-world applications such as clinical decision support, medical education, and patient communication. The model and its training pipeline are fully open-sourced, providing a practical reference for developing similar domain-specific LLMs in other areas of medicine.
 
 <p align="left">
  <img src="./Images/Ophtimus_Dev_Architecture2.png" width="80%">
 </p>
 
+## Dataset Details
+
+> [!Note]
+> All datasets were either newly constructed or adapted for this project.  
+> Pre-training datasets were curated from open-source ophthalmology materials, while instruction-tuning and evaluation datasets were built by extracting only ophthalmology-relevant samples from broader medical corpora.  
+> All data underwent preprocessing steps including deduplication, language filtering (English only), and removal of any personally identifiable information (PII).
+
+
+| Dataset name | Source | Size | Purpose | Key Features |
+|------|-------------|------------|-------------|------------|
+| Ophthalmology-pubmed-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-PubMed-Corpus)] | Ophthalmology paper | 18.4M Tokens | Pre-Training | • Map-reduce method summary<br>• Broad ophthalmic keywords|
+| Ophthalmology-textbook-corpus [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-Textbook-Corpus)] | Ophthalmology textbook | 4M Tokens | Pre-Training | • Trusted medical sources<br>• Rich in diagnostic cases |
+| Opthalmology MCQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-MCQA-v3)]| Ophthalmology Docs | 51.7k QAs | Inst-Tuning | • Diverse multiple-choice formats<br>• Reasoning included<br>• Variety of ophthalmic topics |
+| Opthalmology EQA Inst dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/Ophthalmology-EQA-v3)] | Ophthalmology Docs | 49.3k QAs | Inst-Tuning | • Variety of ophthalmic topics |
+| Ophtimus-Eval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/OphtimusEval-Dataset)] | Medical platform data | 2,153 QAs | Evaluation | • expert-verified data<br>• MCQA dataset|
+| PubMedQA-ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/PubMedQA-Ophthal-Dataset)] | PubMedQA | 297 QAs | Evaluation | • 	Ophthalmology domain filtered<br>• True/False MCQA dataset |
+| MedMCQA-Ophthal-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/MedMCQA-Ophthal-Dataset)] | MedMCQA | 6,932 QAs | Evaluation | • 	Ophthalmology domain filtered<br>• MCQA dataset |
+| EQAEval-Dataset [[Link](https://huggingface.co/datasets/BaekSeungJu/EQAEval-Ophthal-Dataset)] | MedQuAD, Others | 1,389 QAs | Evaluation | • Diverse open-source datasets<br>• Ophthalmology domain filtered<br>• Essay QA |
+
 ## Model Details
 
 > [!Note]
-> Table의 pre-training, fine-tuning은 본 프로젝트에서 실행한 학습을 의미합니다.  
-> Base model들은 이미 이전에 pre-training/fine-tuning을 거친 모델들로 본 프로젝트에서는 transfer learning 하였습니다.
+> The "pre-training" and "fine-tuning" columns in the table refer to the training performed in this project.  
+> The base models had already undergone pre-training and/or fine-tuning prior to this project, and we applied transfer learning using those models.
 
-| 모델명 | Base model | 파라미터 | Pre-training | Fine-tuning |
+| Model name | Base model | Parameters | Pre-training | Instruction-tuning |
 |------|-------------|------------|-------------|------------|
 | Ophtimus-Base [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-8B-Base)] | Llama-3.1-8B | 8B | ✅ | ❌ |
 | Ophtimus-Llama-1B [[Link](https://huggingface.co/BaekSeungJu/Ophtimus-1B-Instruct)] | Llama-3.2-1B-Instruct | 1B | ❌ | ✅ |
@@ -30,8 +53,8 @@ Ophtimus is notable for its openness and extensibility. Released as open source 
 ## Performance
 
 > [!Note]
-> Multi-Choice QA : Ophtimus-Eval, MedMCQA, PubMedQA | Essay QA : MedQuAD, Medical Flashcards, Medical Wikidoc
-> Ophtimus-Eval은 자체적으로 의료 플렛폼에서 수집한 데이터이고, 나머지는 의료 벤치마크 데이터에서 안과학 도메인 QA만을 추출하여 평가하였습니다
+> Multi-Choice QA: Ophtimus-Eval, MedMCQA, PubMedQA | Essay QA: MedQuAD, Medical Flashcards, Medical Wikidoc  
+> Ophtimus-Eval is a proprietary dataset collected from a medical platform. The others are established medical benchmark datasets, from which only ophthalmology-related QA pairs were extracted for evaluation.
 
 <table>
     <thead>
@@ -179,7 +202,7 @@ system_instruction = (
     "medically sound answers to the user's ophthalmology-related question."
 )
 
-# 여러 질문을 리스트에 담습니다.
+# Enter your questions in the list
 questions = [
     "Please describe the symptoms and treatment of epiretinal membrane.",
     "What's good for eyes?"

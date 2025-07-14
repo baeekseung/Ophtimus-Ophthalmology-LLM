@@ -9,7 +9,6 @@ start_page = 23
 end_page = 450
 
 directory_path = f"./Ophthalmology TextBook/wills-eye-manual.pdf"
-output_path = f"./Data/wills-eye-manual.parquet"
 excel_file = f"./Data/wills-eye-manual.xlsx"
 
 def load_pdf(directory_path):

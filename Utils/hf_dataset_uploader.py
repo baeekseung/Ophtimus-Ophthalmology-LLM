@@ -1,22 +1,48 @@
 import pandas as pd
 from datasets import Dataset
-from huggingface_hub import login, HfApi
-import os
+from huggingface_hub import HfApi, HfFolder
 from dotenv import load_dotenv
+import os
+import argparse
 
-load_dotenv()
-huggingface_token = os.getenv("HF_TOKEN_write")
-login(token=huggingface_token)
+# Hugging Face 로그인
+def login_to_huggingface(token):
+    HfFolder.save_token(token)
+    api = HfApi()
+    user = api.whoami()
+    print(f"Logged in as: {user['name']}")
 
-# 현재 파일의 디렉토리로 작업 경로 변경
-current_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(current_dir)
+# 엑셀 → DataFrame
+def excel_to_dataframe(excel_path):
+    df = pd.read_excel(excel_path)
+    print(f"Loaded {excel_path} with columns: {list(df.columns)}")
+    return df
 
-df = pd.read_excel("./Test_ex.xlsx")
+# Hugging Face 업로드
+def upload_to_huggingface(df, dataset_name, private=False):
+    df = df.astype(str)  # 문자열 변환
+    dataset = Dataset.from_pandas(df)
+    dataset.push_to_hub(dataset_name, private=private)
+    print(f"Uploaded to Hugging Face as {dataset_name}")
 
-hf_dataset = Dataset.from_pandas(df)
+def main():
+    parser = argparse.ArgumentParser(description="Upload Excel data to Hugging Face dataset.")
+    parser.add_argument('--excel_path', type=str, required=True, help='Path to the Excel file')
+    parser.add_argument('--repo_name', type=str, required=True, help='Name of the Hugging Face dataset repo (e.g. username/repo)')
+    args = parser.parse_args()
 
-repo_id = "baeekseung/test_dataset"
-hf_dataset.push_to_hub(repo_id)
+    # 환경변수 로드 및 로그인
+    load_dotenv()
+    token = os.getenv("HF_TOKEN_write")
+    if not token:
+        raise ValueError("환경변수 'HF_TOKEN_write'가 설정되어 있지 않습니다.")
+    login_to_huggingface(token)
 
-print(f"✅ 데이터셋이 업로드되었습니다: https://huggingface.co/datasets/{repo_id}")
+    # 실행
+    df = excel_to_dataframe(args.excel_path)
+    upload_to_huggingface(df, args.repo_name)
+
+if __name__ == "__main__":
+    main()
+
+# python hf_upload.py --excel_path ./Test_ex.xlsx --repo_name BaekSeungJu/Test_dataset
