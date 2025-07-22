@@ -32,4 +32,10 @@ pipe = pipeline("text-generation", model=hf_model, tokenizer=tokenizer, max_new_
 model = HuggingFacePipeline(pipeline=pipe)
 chain = prompt | model | StrOutputParser()
 
+import pandas as pd
+excel_path = "TopicwiseEval_Dataset.xlsx"
+# 엑셀 파일에서 'Question' 열 읽기
+df = pd.read_excel(excel_path)
+questions = df["Question"].dropna().tolist()
+
 
