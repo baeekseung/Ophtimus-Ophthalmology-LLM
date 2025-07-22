@@ -9,7 +9,7 @@ df = pd.read_excel(excel_path)
 ground_truth = df['answer']
 model_output = df['collected_answer']
 
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B-Instruct", token=os.getenv("HF_TOKEN_read"), use_fast=False)
 
 from rouge_score import rouge_scorer
 from nltk.translate.bleu_score import sentence_bleu
