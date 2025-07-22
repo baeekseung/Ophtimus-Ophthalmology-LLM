@@ -46,7 +46,7 @@ def Evaluation_meteor(tokenizer, sent1, sent2):
     return meteor_value
 
 def Evaluation_semscore(sent1, sent2):
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    model = SentenceTransformer("all-mpnet-base-v2")
     embedding1 = model.encode(sent1, convert_to_tensor=True)
     embedding2 = model.encode(sent2, convert_to_tensor=True)
     cosine_scores = util.pytorch_cos_sim(embedding1, embedding2).item()
