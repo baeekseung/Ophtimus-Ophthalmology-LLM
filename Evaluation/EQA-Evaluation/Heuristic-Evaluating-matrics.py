@@ -1,6 +1,7 @@
 import pandas as pd
 from transformers import AutoTokenizer
 import nltk
+import os
 nltk.download('wordnet')
 
 excel_path = "./Evaluation/EQA-Evaluation/EQA-Ophthal-Results.xlsx"
@@ -9,10 +10,12 @@ df = pd.read_excel(excel_path)
 ground_truth = df['answer']
 model_output = df['collected_answer']
 
+os.environ["HF_TOKEN_read"] = ""
+
 tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B-Instruct", token=os.getenv("HF_TOKEN_read"), use_fast=False)
 
 from rouge_score import rouge_scorer
-from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from nltk.corpus import wordnet as wn
 wn.ensure_loaded()
 from nltk.translate import meteor_score
@@ -32,9 +35,11 @@ def Evaluation_rouge(tokenizer, sent1, sent2):
     return rouge1, rouge2, rougeL
 
 def Evaluation_bleu(tokenizer, sent1, sent2):
+    smoothie = SmoothingFunction().method1
     bleu_score = sentence_bleu(
         [tokenizer.tokenize(sent1)],
         tokenizer.tokenize(sent2),
+        smoothing_function=smoothie
     )
     return bleu_score
 
