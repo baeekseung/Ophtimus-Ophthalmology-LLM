@@ -14,7 +14,7 @@ Ophtimus is an open-source large language model (LLM) specialized in ophthalmolo
 Designed to be both lightweight and high-performing, Ophtimus is suitable for real-world applications such as clinical decision support, medical education, and patient communication. The model and its training pipeline are fully open-sourced, providing a practical reference for developing similar domain-specific LLMs in other areas of medicine.
 
 <p align="left">
- <img src="./Images/Ophtimus_Dev_Architecture2.png" width="80%">
+ <img src="./Images/Ophtimus-Overall-Architecture.png" width="80%">
 </p>
 
 ## Dataset Details
