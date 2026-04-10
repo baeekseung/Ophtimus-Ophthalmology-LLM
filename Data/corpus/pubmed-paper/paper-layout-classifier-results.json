@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-10T18:49:18.131379",
+  "total": 5,
+  "results": [
+    {
+      "file": "1950230.pdf",
+      "layout": "2단 (multi_column)"
+    },
+    {
+      "file": "2216058.pdf",
+      "layout": "2단 (multi_column)"
+    },
+    {
+      "file": "3542016.pdf",
+      "layout": "2단 (multi_column)"
+    },
+    {
+      "file": "5979417.pdf",
+      "layout": "1단 (single_column)"
+    },
+    {
+      "file": "6096638.pdf",
+      "layout": "2단 (multi_column)"
+    }
+  ]
+}

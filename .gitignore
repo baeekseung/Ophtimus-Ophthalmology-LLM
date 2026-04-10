@@ -1,3 +1,10 @@
 # API Key
 .env
-.pdf
+*.xlsx
+
+Data/corpus/pubmed-paper/Documents/*
+!Data/corpus/pubmed-paper/Documents/1950230.pdf
+Data/corpus/textbook/Documents/*
+
+__pycache__/
+.claude/
