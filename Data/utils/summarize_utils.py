@@ -174,6 +174,94 @@ def stuff_summarize(full_text: str, llm: ChatOpenAI) -> str:
     return result["output_text"]
 
 
+# Textbook 페이지 정형화: 교과서 단일 페이지를 정제된 산문으로 변환
+TEXTBOOK_PAGE_PROMPT = PromptTemplate(
+    input_variables=["text"],
+    template="""You are a specialized medical knowledge curator extracting high-quality pre-training data from an ophthalmology textbook. Your output will be used to train a medical language model, so accuracy, completeness, and strict filtering are essential.
+
+## Your Objective
+Extract and rewrite ALL verified, educational ophthalmology knowledge from this textbook page — maximize the volume of qualifying content retained. Every sentence that meets the quality criteria below must be included; do not omit or compress qualifying content unnecessarily. Never add, infer, or generalize any information not explicitly stated in the source text.
+
+---
+
+## Step-by-Step Process
+
+**Step 1 — Identify qualifying content**
+Extract the following types of established medical knowledge:
+- Definitions and classifications of ocular diseases, structures, or conditions
+- Anatomy and physiology of the eye, orbit, and visual pathway
+- Clinically established pathophysiology and disease mechanisms
+- Diagnostic criteria, clinical signs, symptoms, and examination findings
+- Evidence-based treatment guidelines, pharmacotherapy, and surgical procedures
+- Established epidemiology, prevalence, and risk factors
+- Standard clinical decision-making frameworks and differential diagnoses
+
+**Step 2 — Filter out all non-qualifying content (exclude without exception)**
+- Running headers and footers (e.g., chapter titles, section names repeated at the top/bottom of a page)
+- Page numbers, chapter numbers, and any standalone numeric identifiers
+- Figure captions and descriptions (e.g., "Figure 8-1.", "See Figure 3 for...", "As illustrated in...")
+- Table titles, column headers, and tabular data without narrative context
+- Reference lists, footnotes, and in-text citations (e.g., "[1]", "(Smith, 2020)")
+- Any content clearly unrelated to ophthalmology
+
+**Step 3 — Rewrite as clean natural language prose**
+Transform all qualifying content into coherent, flowing paragraphs:
+- Write in English
+- Use no headings, titles, section labels, or bullet points of any kind
+- Every sentence must end with a period
+- Do not copy sentences verbatim; rephrase into clear, declarative medical prose
+- Preserve the full detail of every qualifying passage — do not summarize or condense what can be kept in full
+- Maintain strict factual accuracy; never add, infer, or extrapolate information not present in the source text
+- Group related concepts into logical paragraphs that flow naturally from one to the next
+
+**Step 4 — Self-verify before producing final output**
+Check your draft against each criterion:
+□ Does the output contain page numbers, chapter headers, or running footers? → Remove them
+□ Does the output reference figures, tables, or graphs? → Remove those sentences
+□ Does the output contain headings, bullet points, or lists? → Rewrite as prose
+□ Does any sentence fail to end with a period? → Fix it
+□ Is there no qualifying content at all? → Output exactly: 콘텐츠 없음
+
+---
+
+## Output Rules
+- Output ONLY the curated prose paragraphs, with no preamble or commentary
+- Maximize the length and detail of the output — include every qualifying sentence from the source
+- Never introduce facts, explanations, or context that are not present in the source text
+- If no qualifying content exists, output exactly: 콘텐츠 없음
+
+---
+
+Textbook Page Text:
+{text}
+
+Curated Medical Knowledge:""",
+)
+
+
+def textbook_page_format(page_text: str, llm: ChatOpenAI) -> str:
+    """
+    Stuff 방식: 교과서 단일 페이지 텍스트를 LLM에 전달하여 정제된 산문으로 변환.
+    페이지 단위로 호출하며, 빈 페이지는 호출 전 필터링 권장.
+
+    Args:
+        page_text: 교과서 단일 페이지 텍스트
+        llm: ChatOpenAI 인스턴스
+
+    Returns:
+        정제된 자연어 산문 텍스트 (내용 없으면 '콘텐츠 없음')
+    """
+    docs = [Document(page_content=page_text)]
+    chain = load_summarize_chain(
+        llm=llm,
+        chain_type="stuff",
+        prompt=TEXTBOOK_PAGE_PROMPT,
+        verbose=False,
+    )
+    result = chain.invoke({"input_documents": docs})
+    return result["output_text"]
+
+
 def map_reduce_summarize(pages: list[str], llm: ChatOpenAI) -> str:
     """
     Map-Reduce 방식: 페이지 단위로 개별 추출(map)한 후 통합 정제(reduce).
