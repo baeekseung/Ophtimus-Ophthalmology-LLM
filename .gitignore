@@ -8,3 +8,4 @@ Data/corpus/textbook/Documents/*
 
 __pycache__/
 .claude/
+serve/

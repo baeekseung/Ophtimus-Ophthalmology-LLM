@@ -17,10 +17,10 @@ SLEEP     = 0.35   # NCBI 속도 제한: 초당 3회 이하
 # PMC 검색 (오픈소스 논문만 검색하기 위해서 PMC에서 1차 검색)
 def search_pmc(keyword: str, max_results: int = 500) -> list:
     """
-    PMC에서 키워드로 오픈액세스 논문을 검색합니다.
-    relevance(관련도) 정렬로 PMID가 있는 논문만 반환됩니다.
+    PMC에서 키워드 기반 오픈액세스 논문을 검색
+    relevance 기준 정렬로 PMID가 있는 논문만 반환
 
-    반환값: PMC ID 목록 (예: ['11529683', '10948212', ...])
+    반환값: PMC ID 목록
     """
     params = {
         "db": "pmc",
@@ -41,13 +41,13 @@ def search_pmc(keyword: str, max_results: int = 500) -> list:
 # PMC ID → PubMed ID 변환
 def get_pmc_to_pmid_map(pmc_ids: list) -> dict:
     """
-    PMC ID를 PubMed ID로 변환합니다. (인용수 조회에 PubMed ID가 필요)
-    200개씩 배치로 처리합니다.
+    PMC ID를 PubMed ID로 변환 (인용수 조회에 PubMed ID가 필요)
+    200개씩 배치로 처리 (batch_size 조절 가능)
 
     반환값: {pmc_id: pmid} 딕셔너리
     """
     result = {}
-    batch_size = 200
+    batch_size = 200    # 배치 사이즈
 
     for i in range(0, len(pmc_ids), batch_size):
         batch = pmc_ids[i : i + batch_size]
@@ -63,7 +63,7 @@ def get_pmc_to_pmid_map(pmc_ids: list) -> dict:
 
             for pmc_id in batch:
                 article_ids = data.get(pmc_id, {}).get("articleids", [])
-                # articleids 목록에서 pmid 타입을 찾습니다
+                # articleids 목록에서 pmid 타입 탐색
                 for id_info in article_ids:
                     if id_info.get("idtype") == "pmid" and id_info.get("value"):
                         result[pmc_id] = id_info["value"]
@@ -79,8 +79,8 @@ def get_pmc_to_pmid_map(pmc_ids: list) -> dict:
 # 인용수 조회
 def get_citation_counts(pmids: list) -> dict:
     """
-    iCite API로 PubMed 논문들의 인용수를 조회합니다.
-    200개씩 배치로 처리합니다.
+    iCite API로 PubMed 논문들의 인용수 조회
+    200개씩 배치로 처리 (batch_size 조절 가능)
 
     반환값: {pmid: 인용수} 딕셔너리
     """
@@ -109,11 +109,11 @@ def get_citation_counts(pmids: list) -> dict:
 # PDF URL 조회
 def get_pdf_url(pmc_id: str):
     """
-    PMC OA API로 논문의 PDF 다운로드 URL을 조회합니다.
-    ftp:// URL을 https://로 변환하여 반환합니다.
+    PMC OA API로 논문의 PDF 다운로드 URL 조회
+    ftp:// URL을 https://로 변환하여 반환
 
     반환값: (url, format) 또는 (None, None)
-      - format은 'pdf' 또는 'tgz'
+      - format: 'pdf' 또는 'tgz'
     """
     try:
         response = requests.get(OA_API, params={"id": f"PMC{pmc_id}"}, timeout=30)
@@ -154,7 +154,7 @@ def get_pdf_url(pmc_id: str):
 # PDF 다운로드
 def download_pdf(url: str, fmt: str, save_path: str) -> bool:
     """
-    PDF 파일을 다운로드하여 저장합니다.
+    PDF 파일을 다운로드하여 저장
     - fmt=='pdf': 직접 다운로드
     - fmt=='tgz': 아카이브에서 PDF 파일을 추출
 
@@ -199,7 +199,6 @@ def download_pdf(url: str, fmt: str, save_path: str) -> bool:
 
 def main(keyword: str, k: int, output_dir: str):
     """
-    전체 파이프라인:
     1. PMC 검색 → 2. ID 변환 → 3. 인용수 조회 → 4. 정렬 → 5. PDF 다운로드
     """
     os.makedirs(output_dir, exist_ok=True)

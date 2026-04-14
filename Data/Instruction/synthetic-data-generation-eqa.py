@@ -150,16 +150,6 @@ def has_more_qa(state: SyntheticDataState) -> Literal["load_next_qa", "__end__"]
 
 # LangGraph 그래프 빌드
 def build_graph():
-    """
-    합성 EQA 데이터 생성 그래프 빌드.
-
-    흐름:
-      START → generate_all_qa → load_next_qa → evaluate_answer
-                                                    ├─ (통과/횟수초과) → save_and_next
-                                                    │                       ├─ (남은 QA 있음) → load_next_qa (루프)
-                                                    │                       └─ (모두 완료) → END
-                                                    └─ (실패) → regenerate_answer → evaluate_answer (루프)
-    """
     graph = StateGraph(SyntheticDataState)
 
     graph.add_node("generate_all_qa", generate_all_qa)

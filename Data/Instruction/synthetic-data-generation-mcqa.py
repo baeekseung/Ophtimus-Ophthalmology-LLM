@@ -1,16 +1,3 @@
-"""
-피드백 기반 합성 MCQA 데이터 생성 파이프라인
-
-논문 "고품질 인스트럭션 데이터 구축을 위한 피드백 기반 합성데이터 생성 방법" 기반 구현.
-3단계 프레임워크:
-  ① MCQA 생성 (gpt-4o-mini): corpus 텍스트에서 객관식 문제 일괄 생성 (2/4/5지선다 혼합)
-  ② 문제 평가 (gpt-4o-mini): 정답 정확성·선택지 품질·해설 완성도·관련성·중립성 기준 평가
-  ③ 피드백 기반 재생성 (gpt-4o): 평가 피드백을 반영하여 최대 2회 재생성
-
-입력: Data/corpus/textbook/formatted-textbooks.xlsx
-출력: Data/Instruction/generated-mcqa-data.xlsx
-"""
-
 import json
 import re
 import sys
@@ -232,16 +219,6 @@ def has_more_qa(state: MCQAState) -> Literal["load_next_mcqa", "__end__"]:
 
 # LangGraph 그래프 빌드
 def build_graph():
-    """
-    합성 MCQA 데이터 생성 그래프 빌드.
-
-    흐름:
-      START → generate_all_mcqa → load_next_mcqa → evaluate_mcqa
-                                                        ├─ (통과/횟수초과) → save_and_next
-                                                        │                       ├─ (남은 MCQA 있음) → load_next_mcqa (루프)
-                                                        │                       └─ (모두 완료) → END
-                                                        └─ (실패) → regenerate_mcqa → evaluate_mcqa (루프)
-    """
     graph = StateGraph(MCQAState)
 
     graph.add_node("generate_all_mcqa", generate_all_mcqa)
