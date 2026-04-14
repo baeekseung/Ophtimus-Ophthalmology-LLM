@@ -1,11 +1,8 @@
 """
 PubMed 논문 요약 및 정형화 파이프라인
 
-parsed-papers.xlsx를 읽어 각 논문을 요약합니다.
 - context length ≤ 70K 토큰: Stuff 방식 (전체 텍스트 한 번에 요약)
 - context length > 70K 토큰: Map-Reduce 방식 (페이지별 요약 후 통합)
-
-결과는 summarized-papers.xlsx로 저장됩니다.
 """
 
 import os
@@ -36,27 +33,20 @@ count_corpus_tokens = _module.count_corpus_tokens
 
 from summarize_utils import stuff_summarize, map_reduce_summarize  # noqa: E402
 
-# ────────────────────────────────────────────────────────────────────
-# 설정
-# ────────────────────────────────────────────────────────────────────
 
 INPUT_EXCEL_PATH = "./parsed-papers.xlsx"
 OUTPUT_EXCEL_PATH = "./summarized-papers.xlsx"
 
-TOKEN_THRESHOLD = 70_000  # Stuff vs Map-Reduce 분기 기준
+TOKEN_THRESHOLD = 70000  # Stuff vs Map-Reduce 분기 기준
 
 LLM_MODEL = "gpt-4o-mini"
 LLM_TEMPERATURE = 0.0
 
 
-# ────────────────────────────────────────────────────────────────────
-# 메인 로직
-# ────────────────────────────────────────────────────────────────────
-
 def summarize_paper(
     file_name: str,
     pages_df: pd.DataFrame,
-    llm: ChatOpenAI,
+    llm,
 ) -> dict:
     """
     단일 논문의 모든 페이지를 요약하고 결과를 반환합니다.
@@ -64,7 +54,7 @@ def summarize_paper(
     Args:
         file_name: 논문 파일명
         pages_df: 해당 논문의 페이지별 DataFrame (page, contents 컬럼 포함)
-        llm: ChatOpenAI 인스턴스
+        llm
 
     Returns:
         요약 결과 딕셔너리 {file, token_count, method, summary}
@@ -76,7 +66,7 @@ def summarize_paper(
 
     # 토큰 수 측정
     token_count = count_corpus_tokens(full_text)
-    print(f"  토큰 수: {token_count:,}")
+    # print(f"  토큰 수: {token_count:,}")
 
     # 요약 방식 결정 및 실행
     if token_count <= TOKEN_THRESHOLD:
@@ -97,11 +87,7 @@ def summarize_paper(
 
 
 def main():
-    # LLM 초기화
-    llm = ChatOpenAI(
-        model=LLM_MODEL,
-        temperature=LLM_TEMPERATURE,
-    )
+    llm = ChatOpenAI(model=LLM_MODEL, temperature=LLM_TEMPERATURE)
 
     # 파싱된 논문 로드
     df = pd.read_excel(INPUT_EXCEL_PATH)
