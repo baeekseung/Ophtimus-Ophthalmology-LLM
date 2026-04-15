@@ -1,4 +1,4 @@
-# Ophtimus: Ophthalmology-specific LLM
+# Ophthalmology-Domain-specific-LLM : OPHTIMUS
 
 ![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge)
